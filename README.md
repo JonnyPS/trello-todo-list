@@ -1,5 +1,6 @@
 # A simple todo list on Trello. Using the Trello API, users can add cards by submitting a form
 ## Designed for users to submit development requests
+### A work in progress
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
