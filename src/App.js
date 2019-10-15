@@ -6,24 +6,30 @@ class Details extends Component {
     super(props);
     this.state = {
       name: 'kjhjkh',
-      email: 'jonno@gmail.com'
+      desc: 'something'
     }
-    this.myChangeHandler = this.myChangeHandler.bind(this);
+    this.myNameChangeHandler = this.myNameChangeHandler.bind(this);
+    this.myDescChangeHandler = this.myDescChangeHandler.bind(this);
   }
 
   componentDidMount() {
     console.log('componentDidMount')
   }
 
-  myChangeHandler = (event) => {
+  myNameChangeHandler = (event) => {
     this.setState({name: event.target.value})
+  }  
+
+  myDescChangeHandler = (event) => {
+    this.setState({desc: event.target.value})
   }  
 
   submitForm = (event) => {
     event.preventDefault();
     console.log('submitForm')
     let nameDeets = 'name='+this.state.name; 
-    let url = "https://api.trello.com/1/cards?"+nameDeets+"&desc=card%20desc%20goes%20here&pos=bottom&due='01-01-2020'&dueComplete=false&idList=5d9f953414248b87ba70af3d&keepFromSource=all&idMembers=59706920511f4b4d58010565&idLabels=5d9f94dc8bdee58e0d78d1f7&key=d8cdd26a3e085a5d0fe9669f289b22e2&token=0e101c9ba33edbe68d4c9a37ef88a227d0af8a2b2b294d7af2981f2624980d3b"
+    let cardDesc =  'desc='+this.state.desc;
+    let url = "https://api.trello.com/1/cards?"+nameDeets+"&"+cardDesc+"&pos=bottom&due='01-01-2020'&dueComplete=false&idList=5d9f953414248b87ba70af3d&keepFromSource=all&idMembers=59706920511f4b4d58010565&idLabels=5d9f94dc8bdee58e0d78d1f7&key=d8cdd26a3e085a5d0fe9669f289b22e2&token=0e101c9ba33edbe68d4c9a37ef88a227d0af8a2b2b294d7af2981f2624980d3b"
       fetch(url, {  
           method: 'POST',  
           // headers: {  
@@ -49,7 +55,11 @@ class Details extends Component {
         <form name="testitout" onSubmit={this.submitForm}>
           <input 
             type='text'
-            onChange={this.myChangeHandler}
+            onChange={this.myNameChangeHandler}
+          />
+          <input 
+            type='text'
+            onChange={this.myDescChangeHandler}
           />
           <input 
             type="submit"
