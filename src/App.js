@@ -27,9 +27,11 @@ class Details extends Component {
   submitForm = (event) => {
     event.preventDefault();
     console.log('submitForm')
+    const API_KEY = process.env.REACT_APP_TRELLO_API_KEY;
+    const API_TOKEN = process.env.REACT_APP_TRELLO_TOKEN;
     let nameDeets = 'name='+this.state.name; 
     let cardDesc =  'desc='+this.state.desc;
-    let url = "https://api.trello.com/1/cards?"+nameDeets+"&"+cardDesc+"&pos=bottom&due='01-01-2020'&dueComplete=false&idList=5d9f953414248b87ba70af3d&keepFromSource=all&idMembers=59706920511f4b4d58010565&idLabels=5d9f94dc8bdee58e0d78d1f7&key=d8cdd26a3e085a5d0fe9669f289b22e2&token=0e101c9ba33edbe68d4c9a37ef88a227d0af8a2b2b294d7af2981f2624980d3b"
+    let url = "https://api.trello.com/1/cards?"+nameDeets+"&"+cardDesc+"&pos=bottom&due='01-01-2020'&dueComplete=false&idList=5d9f953414248b87ba70af3d&keepFromSource=all&idMembers=59706920511f4b4d58010565&idLabels=5d9f94dc8bdee58e0d78d1f7&key="+API_KEY+"&token="+API_TOKEN
       fetch(url, {  
           method: 'POST',  
           // headers: {  
