@@ -20,3 +20,10 @@
 .App-link {
   color: #09d3ac;
 }
+
+input {
+  display: block;
+  width: 200px;
+  height: 30px;
+  margin-bottom: 10px;
+}
