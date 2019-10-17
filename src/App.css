@@ -21,9 +21,22 @@
   color: #09d3ac;
 }
 
-input {
+.container {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.input--standard {
   display: block;
-  width: 200px;
-  height: 30px;
+  width: 300px;
+  height: 35px;
   margin-bottom: 10px;
+}
+
+.input--small {
+  display: inline-block;
+  width: 70px;
+  height: 35px;
+  margin-bottom: 10px;
+  margin-right: 10px;
 }

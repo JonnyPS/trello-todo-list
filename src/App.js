@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
 import './App.css';
+// import component
+import Success from './components/success.js';
+import Failure from './components/failure.js';
+
+
+class SubmitButton extends Component {
+  render() {
+    return (
+      <input 
+        {...this.props}
+        type="submit"
+        value="submit"
+      />
+    );
+  }  
+}
+
 
 class Details extends Component {
   constructor(props) {
@@ -12,14 +29,17 @@ class Details extends Component {
       dateMonth: '10',
       dateYear: '2019',
       member: '',
-
+      submitted: null
     }
     this.myNameChangeHandler = this.myNameChangeHandler.bind(this);
     this.myDescChangeHandler = this.myDescChangeHandler.bind(this);
+    this.submitForm = this.submitForm.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
     console.log('componentDidMount')
+    console.log('componentDidMount', this.state)
   }
 
   componentDidUpdate() {
@@ -52,7 +72,12 @@ class Details extends Component {
 
   dateYearChangeHandler = (event) => {
     this.setState({dateYear: event.target.value})
-  }  
+  } 
+
+  // submitHandler = () => {
+  //   this.setState({submitted: true})
+  //   // data.status === 200 ? this.setState({submitted: true}) : this.setState({submitted: false});
+  // } 
 
   submitForm = (event) => {
     event.preventDefault();
@@ -69,51 +94,56 @@ class Details extends Component {
       API_TOKEN: process.env.REACT_APP_TRELLO_TOKEN,
       url: () => {
       return "https://api.trello.com/1/cards?name=" + urlQueries.name + "&desc=" + urlQueries.desc + "&due=" + urlQueries.dueDate + "&idLabels=" + urlQueries.priority + "&idMembers=" + urlQueries.member + "&idList=" + urlQueries.idList + "&key=" + urlQueries.API_KEY + "&token=" + urlQueries.API_TOKEN
-      }
-    }    
-      fetch(urlQueries.url(), {  
-          method: 'POST',  
-          // headers: {  
-          //   'auth': '1234'  
-          // },  
-        //    body: JSON.stringify({
-        //   name: 'dean',
-        //   login: 'dean',
-        // })
-      })
-      .then(function (data) {  
-        console.log('Request success: ', data);  
-      })  
-      .catch(function (error) {  
-        console.log('Request failure: ', error);  
-      });
+      },
+      postData: () => {
+          fetch(urlQueries.url(), {  
+            method: 'POST'
+        })
+        .then( (data) => {  
+          console.log('response: ', data); 
+          // this.setState({submitted: true})
+          console.log('arrow this', this)
+          data.status === 200 ? this.setState({submitted: true}) : this.setState({submitted: false});
+
+        })  
+        .catch( (error) => {  
+          console.log('error: ', error);  
+        })
+      }  
+    }
+    urlQueries.postData();     
   }
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h1>{this.state.name}</h1>
         <form name="testitout" onSubmit={this.submitForm}>
-        <h3>Name</h3>
+          <h3>Name</h3>
           <input 
+            className='input--standard'
             type='text'
             onChange={this.myNameChangeHandler}
           />
           <h3>Description</h3>
           <input 
+            className='input--standard'
             type='text'
             onChange={this.myDescChangeHandler}
           />
           <h3>Date (In DD-MM-YYYY format)</h3>
           <input 
-            type='text'
-            onChange={this.dateDayChangeHandler}
-          />
-          <input 
+            className='input--small'
             type='text'
             onChange={this.dateMonthChangeHandler}
           />
           <input 
+            className='input--small'
+            type='text'
+            onChange={this.dateDayChangeHandler}
+          />
+          <input 
+            className='input--small'
             type='text'
             onChange={this.dateYearChangeHandler}
           />
@@ -133,29 +163,10 @@ class Details extends Component {
             value="submit"
           />
         </form>
+        {this.state.submitted ? <Success /> : <Failure />}
       </div>
     );
   }
 }
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default Details;
