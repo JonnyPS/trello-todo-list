@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class Success extends Component {
+class ResultMessage extends Component {
   render() {
     return (
       <div {...this.props}>
-        <p>Succes! Well done</p>
+        <p>{this.props.message}</p>
       </div>
     );
   }  
 }
 
-export default Success;
+export default ResultMessage;

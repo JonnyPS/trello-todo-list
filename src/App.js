@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 // import component
-import Success from './components/success.js';
-import Failure from './components/failure.js';
+import ResultMessage from './components/result-message.js';
 
 
 class SubmitButton extends Component {
@@ -101,10 +100,7 @@ class Details extends Component {
         })
         .then( (data) => {  
           console.log('response: ', data); 
-          // this.setState({submitted: true})
-          console.log('arrow this', this)
           data.status === 200 ? this.setState({submitted: true}) : this.setState({submitted: false});
-
         })  
         .catch( (error) => {  
           console.log('error: ', error);  
@@ -163,7 +159,7 @@ class Details extends Component {
             value="submit"
           />
         </form>
-        {this.state.submitted ? <Success /> : <Failure />}
+        {this.state.submitted ? <ResultMessage message={'success! well done'} /> : <ResultMessage message={'nuh uh brah!!'} />}
       </div>
     );
   }
