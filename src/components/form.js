@@ -1,23 +1,6 @@
 import React, { Component } from 'react';
-import './App.css';
-// import component
-import ResultMessage from './components/result-message.js';
 
-
-class SubmitButton extends Component {
-  render() {
-    return (
-      <input 
-        {...this.props}
-        type="submit"
-        value="submit"
-      />
-    );
-  }  
-}
-
-
-class Details extends Component {
+class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,8 +10,7 @@ class Details extends Component {
       dateDay: '12',
       dateMonth: '10',
       dateYear: '2019',
-      member: '',
-      submitted: null
+      member: ''
     }
     this.myNameChangeHandler = this.myNameChangeHandler.bind(this);
     this.myDescChangeHandler = this.myDescChangeHandler.bind(this);
@@ -100,7 +82,8 @@ class Details extends Component {
         })
         .then( (data) => {  
           console.log('response: ', data); 
-          data.status === 200 ? this.setState({submitted: true}) : this.setState({submitted: false});
+          this.props.submit
+          // data.status === 200 ? this.setState({submitted: true}) : this.setState({submitted: false});
         })  
         .catch( (error) => {  
           console.log('error: ', error);  
@@ -114,7 +97,7 @@ class Details extends Component {
     return (
       <div className="container">
         <h1>{this.state.name}</h1>
-        <form name="testitout" onSubmit={this.submitForm}>
+        <form name="testitout" onSubmit={this.props.submitForm}>
           <h3>Name</h3>
           <input 
             className='input--standard'
@@ -159,13 +142,9 @@ class Details extends Component {
             value="submit"
           />
         </form>
-        {this.state.submitted 
-          ? <ResultMessage message={'success! well done'} classvalue={'success-message'} /> 
-          : <ResultMessage message={'nuh uh brah!!'} classvalue={'failure-message'} /> 
-        }
       </div>
     );
   }
 }
 
-export default Details;
+export default Form;
