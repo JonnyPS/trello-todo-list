@@ -4,20 +4,7 @@ import './App.css';
 import ResultMessage from './components/result-message.js';
 
 
-class SubmitButton extends Component {
-  render() {
-    return (
-      <input 
-        {...this.props}
-        type="submit"
-        value="submit"
-      />
-    );
-  }  
-}
-
-
-class Details extends Component {
+class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,10 +17,7 @@ class Details extends Component {
       member: '',
       submitted: null
     }
-    this.myNameChangeHandler = this.myNameChangeHandler.bind(this);
-    this.myDescChangeHandler = this.myDescChangeHandler.bind(this);
     this.submitForm = this.submitForm.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -45,33 +29,10 @@ class Details extends Component {
     console.log('componentDidUpdate', this.state)
   }
 
-  myNameChangeHandler = (event) => {
-    this.setState({name: event.target.value})
-  }  
-
-  myDescChangeHandler = (event) => {
-    this.setState({desc: event.target.value})
-  } 
-
-  priorityChangeHandler = (event) => {
-    this.setState({priority: event.target.value})
-  } 
-
-  memberChangeHandler = (event) => {
-    this.setState({member: event.target.value})
-  } 
-
-  dateDayChangeHandler = (event) => {
-    this.setState({dateDay: event.target.value})
-  } 
-
-  dateMonthChangeHandler = (event) => {
-    this.setState({dateMonth: event.target.value})
-  } 
-
-  dateYearChangeHandler = (event) => {
-    this.setState({dateYear: event.target.value})
-  } 
+  // a generic handler for setting state based on input fields values
+  onChangeHandler = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
+  }
 
   // submitHandler = () => {
   //   this.setState({submitted: true})
@@ -119,38 +80,44 @@ class Details extends Component {
           <input 
             className='input--standard'
             type='text'
-            onChange={this.myNameChangeHandler}
+            name="name"
+            // value={this.state.name}
+            onChange={this.onChangeHandler}
           />
           <h3>Description</h3>
           <input 
             className='input--standard'
             type='text'
-            onChange={this.myDescChangeHandler}
+            name="desc"
+            onChange={this.onChangeHandler}
           />
           <h3>Date (In DD-MM-YYYY format)</h3>
           <input 
             className='input--small'
             type='text'
-            onChange={this.dateMonthChangeHandler}
+            name="dayDate"
+            onChange={this.onChangeHandler}
           />
           <input 
             className='input--small'
             type='text'
-            onChange={this.dateDayChangeHandler}
+            name="dayMonth"
+            onChange={this.onChangeHandler}
           />
           <input 
             className='input--small'
             type='text'
-            onChange={this.dateYearChangeHandler}
+            name="dayYear"
+            onChange={this.onChangeHandler}
           />
           <h3>Level of Priority</h3>
-          <select onChange={this.priorityChangeHandler}>
+          <select name="priority" onChange={this.onChangeHandler}>
             <option value="5d9f94dc8bdee58e0d78d1ee">This is lowest priority</option>
             <option value="5d9f94dc8bdee58e0d78d1ec">This is medium priority</option>
             <option value="5d9f94dc8bdee58e0d78d1ed">This is highest priority</option>
           </select>
           <h3>Member</h3>
-          <select onChange={this.memberChangeHandler}>
+          <select name="member" onChange={this.memberChangeHandler}>
             <option value="59706920511f4b4d58010565">Member one</option>
             <option value="5bc325980c8d7254db9c0fdb">Member two</option>
           </select>
@@ -168,4 +135,4 @@ class Details extends Component {
   }
 }
 
-export default Details;
+export default Form;
