@@ -3,7 +3,6 @@ import './App.css';
 // import component
 import ResultMessage from './components/result-message.js';
 
-
 class Form extends Component {
   constructor(props) {
     super(props);
@@ -21,7 +20,6 @@ class Form extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount')
     console.log('componentDidMount', this.state)
   }
 
@@ -34,26 +32,16 @@ class Form extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  // submitHandler = () => {
-  //   this.setState({submitted: true})
-  //   // data.status === 200 ? this.setState({submitted: true}) : this.setState({submitted: false});
-  // } 
-
   submitForm = (event) => {
+    // stop page reloading automatically
     event.preventDefault();
-    console.log('submitForm')
 
     var urlQueries = {
-      name: this.state.name,
-      desc: this.state.desc,
-      priority: this.state.priority,
-      dueDate: this.state.dateDay + "-" + this.state.dateMonth + "-" + this.state.dateYear,
-      member: this.state.member,
       idList: '5d9f953414248b87ba70af3d',
       API_KEY: process.env.REACT_APP_TRELLO_API_KEY,
       API_TOKEN: process.env.REACT_APP_TRELLO_TOKEN,
       url: () => {
-      return "https://api.trello.com/1/cards?name=" + urlQueries.name + "&desc=" + urlQueries.desc + "&due=" + urlQueries.dueDate + "&idLabels=" + urlQueries.priority + "&idMembers=" + urlQueries.member + "&idList=" + urlQueries.idList + "&key=" + urlQueries.API_KEY + "&token=" + urlQueries.API_TOKEN
+      return "https://api.trello.com/1/cards?name=" + this.state.name + "&desc=" + this.state.desc + "&due=" + this.state.dateDay + "-" + this.state.dateMonth + "-" + this.state.dateYear + "&idLabels=" + urlQueries.priority + "&idMembers=" + this.state.member + "&idList=" + urlQueries.idList + "&key=" + urlQueries.API_KEY + "&token=" + urlQueries.API_TOKEN
       },
       postData: () => {
           fetch(urlQueries.url(), {  
@@ -81,7 +69,6 @@ class Form extends Component {
             className='input--standard'
             type='text'
             name="name"
-            // value={this.state.name}
             onChange={this.onChangeHandler}
           />
           <h3>Description</h3>
